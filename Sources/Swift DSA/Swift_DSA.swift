@@ -146,3 +146,45 @@ func isAnagram(_ s: String, _ t: String) -> Bool {
 } // n
 
 
+
+
+//MARK: - 8. Group Anagrams (#49)
+
+func groupAnagramss(_ strs: [String]) -> [[String]] {
+    var dict = [String : [String]]()
+    for word in strs {
+        let sortedWord = String(word.sorted())
+        dict[sortedWord, default: [] ].append(word)
+    }
+    return Array(dict.values)
+} // m * n logn
+
+func groupAnagrams(_ strs: [String]) -> [[String]] {
+    var dict = [Array<Int> : [String]]()
+    for word in strs {
+        var arrayInt = [Int](repeating : 0, count : 26)
+        for letter in word {
+            arrayInt[Int(letter.asciiValue! - 97)] += 1
+        }
+        dict[arrayInt, default : [] ].append(word)
+    }
+    return Array(dict.values)
+} // m * n
+
+//MARK: - 9. Top K Frequent Elements (#347)
+
+func topKFrequentt(_ nums: [Int], _ k: Int) -> [Int] {
+    var dict = [Int : Int]()
+    for int in nums {
+        dict[int, default : 0] += 1
+    }
+    let topKeys = dict
+        .sorted { $0.value > $1.value }
+        .prefix(k)
+        .map{ $0.key }
+    
+    return topKeys
+} // n logn
+
+// this can be done n logk but i dont know heap (k can be smaller than n but is n in worst case)
+
